@@ -1,5 +1,5 @@
 //http://assets.example.com/foo/??bar.js,baz.js
-
+//合并文件第二版
 var fs=require('fs');
 var path=require('path');
 var http=require('http');
@@ -11,10 +11,10 @@ var MIME={
 function main(argv){
 	var config=argv[0] ? JSON.parse(fs.readFileSync(argv[0],'utf-8')) : {},
 		root=config.root || '.',
-		port=config.port || 8012;
-	http.createServer(function(request,response){
-		var urlInfo=parseURL(root,request.url);
-		combineFiles(urlInfo.pathnames,function(err,data){
+		port=config.port || 8012,
+		server=http.createServer(function(request,response){
+		var urlInfo=parseURL(root,request.url);console.log(urlInfo)
+		validateFiles(urlInfo.pathnames,function(err,pathnames){
 			if(err){
 				response.writeHead(404);
 				response.end(err.message);
@@ -22,10 +22,44 @@ function main(argv){
 				response.writeHead(200,{
 					'Content-Type':urlInfo.mime
 				})
-				response.end(data);
+				outputFiles(pathnames,response);
 			}
 		});
-	}).listen(port);	
+	}).listen(port);
+
+	process.on('SIGTERM',function(){
+		server.close(function(){
+			process.exit(0);
+		})
+	})	
+}
+//合并文件优化版
+function validateFiles(pathnames,callback){
+	(function next(i,len){
+		if(i<len){
+			fs.stat(pathnames[i],function(err,stats){
+				if(err){
+					callback(err);
+				}else if(!stats.isFile){
+					callback(new Error());
+				}else{
+					next(i+1,len)
+				}
+			})
+		}else{
+			callback(null,pathnames);
+		}
+	})(0,pathnames.length);
+}
+function outputFiles(pathnames,writer){
+	(function next(i,len){
+		//使用createReadStream读取文件
+		var reader=fs.createReadStream(pathnames[i]);
+		reader.pipe(writer,{end:false});
+		reader.on('end',function(){
+			next(i+1,len);
+		});
+	})(0,pathnames.length);
 }
 //合并文件
 //fs.readFile()异步读取文件
@@ -68,6 +102,7 @@ function parseURL(root,url){
 		pathnames:pathnames
 	};
 }
+
 //process.argv:包含命令行参数的数组；
 //第一个参数是node，第二个参数是文件名称；第3+额外的参数
 main(process.argv.slice(2));

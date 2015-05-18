@@ -1,1 +1,1 @@
-console.log("ctest1.js file content");
+console.log(1)
