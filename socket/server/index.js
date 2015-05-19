@@ -3,7 +3,6 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var path=require('path');
-console.log(path.resolve('../') +'/client');
 app.use(express.static(path.resolve('../') +'/client'));
 
 app.get('/', function(req, res){
