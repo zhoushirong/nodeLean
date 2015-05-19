@@ -3,18 +3,20 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var path=require('path');
+
+//设置静态文件目录
 app.use(express.static(path.resolve('../') +'/client'));
 
+//路由设置
 app.get('/', function(req, res){
 	res.send('<h1>Welcome Realtime Server</h1>');
 });
 app.get('/chat', function(req, res){
 	res.send('/client/index.html');
 });
-//在线用户
-var onlineUsers = {};
-//当前在线人数
-var onlineCount = 0;
+
+//在线用户、在线人数
+var onlineUsers = {},onlineCount = 0;
 
 io.on('connection', function(socket){
 	console.log('a user connected');
