@@ -1,11 +1,17 @@
-var app = require('express')();
+var express=require('express');
+var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var path=require('path');
+console.log(path.resolve('../') +'/client');
+app.use(express.static(path.resolve('../') +'/client'));
 
 app.get('/', function(req, res){
 	res.send('<h1>Welcome Realtime Server</h1>');
 });
-
+app.get('/chat', function(req, res){
+	res.send('/client/index.html');
+});
 //在线用户
 var onlineUsers = {};
 //当前在线人数
