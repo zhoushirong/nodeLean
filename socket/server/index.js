@@ -5,7 +5,7 @@ var io = require('socket.io')(http);
 var path=require('path');
 var IP=require('./getIp');
 app.use(express.static(path.resolve('../') +'/client'));
-console.log(app.enable('trust proxy'))
+
 //路由设置
 app.get('/', function(req, res){
 	res.send('<h1>Welcome Realtime Server</h1>');
