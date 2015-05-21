@@ -15,6 +15,24 @@ app.get('/chat', function(req, res){
 	res.send('/client/index.html');
 });
 
+//ajax get test
+app.get('/ajaxpost', function(req, res){
+	//console.log(IP.getClientIP(req));
+	res.json({
+		type:"get",
+		success:1,
+		ip:IP.getClientIP(req)
+	});
+});
+//ajax post test
+app.post('/ajaxpost',function(req,res){
+    res.json({
+    	type:"post",
+    	success:1,
+    	ip:IP.getClientIP(req)
+    });
+});
+
 //在线用户、在线人数
 var onlineUsers = {},onlineCount = 0;
 
