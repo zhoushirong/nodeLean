@@ -11,13 +11,11 @@ app.get('/', function(req, res){
 	res.send('<h1>Welcome Realtime Server</h1>');
 });
 app.get('/chat', function(req, res){
-	//console.log(IP.getClientIP(req));
 	res.send('/client/index.html');
 });
 
 //ajax get test
 app.get('/ajaxpost', function(req, res){
-	//console.log(IP.getClientIP(req));
 	res.json({
 		type:"get",
 		success:1,
@@ -31,6 +29,15 @@ app.post('/ajaxpost',function(req,res){
     	success:1,
     	ip:IP.getClientIP(req)
     });
+});
+//img src test
+app.get('/imgsrc',function(req,res){
+    res.json({
+    	type:"src",
+    	success:1,
+    	ip:IP.getClientIP(req)
+    });
+    console.log("this is imgsrc request!!!!!");
 });
 
 //在线用户、在线人数

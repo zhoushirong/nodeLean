@@ -1,4 +1,4 @@
-exports.getClientIP = function(req){console.log(req.headers);
+exports.getClientIP = function(req){
 	var ipAddress;
 	var headers = req.headers;
 	var forwardedIpsStr = headers['x-real-ip'] || headers['x-forwarded-for'];
