@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>javascript操作DOM不当导致内存泄露</title>
+</head>
+<body>
+<!-- <ul id="fbox">
+	<li>test1</li>
+	<li>test2</li>
+	<li>test3</li>
+	<li>test4</li>
+	<li>test5</li>
+	<li>test6</li>
+	<li>test7</li>
+</ul> -->
+<div id="myDiv">
+    <input type="button" value="Click me" id="myBtn">
+</div>
+</body>
+<script type="text/javascript">
+function ObjTest(){};
+
+ObjTest.btn = document.getElementById("myBtn");
+ObjTest.btn.onclick = function(){
+    document.getElementById("myDiv").innerHTML = "Processing...";
+    //ObjTest.btn=null;
+}
+var obj=new ObjTest();
+obj();
+
+// var lis=document.getElementsByTagName("li");
+// for(var i=0,len=lis.length;i<len;i++){
+// 	lis.onclick=function(){
+// 		AttachEvents(lis[i]);
+// 	}
+// }
+</script>
+</html>
