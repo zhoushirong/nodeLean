@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <style type="text/css">
+    *{margin:0;padding:0;}
+    html{height:100%;}
+    body{position:relative;height:100%;overflow:hidden;}
+    #fbox{position:relative;width:899px;height:500px;border:2px solid #f00;margin:60px 0 0 40px;}
+    .musicGenius_box{width:100px;height:100px;overflow:hidden;position:absolute;top:0px;left:0px;background:#eee;cursor:move;z-index:101;border-radius:50px;}
+    .movefield{position:absolute;top:0;left:0;z-index:100;background:#ccc;opacity:0.6;width:100%;height:100%;}
+    </style>
+</head>
+<body>
+ <div id="fbox">
+    <div id="musicGeniusBox" class="musicGenius_box"></div>
+</div>
+<script type="text/javascript" src="/static/js/jquery.min.js"></script>
+<script type="text/javascript">
+var dragMove={
+	init:function(){
+		var para={
+			"fbox":$("body"),
+			"tag":"",
+			"left":[0],
+			"top":[0]
+		};
+
+		args=arguments[0];
+		for(var i in args){
+			para[i]=args[i];
+		}
+		var maxLeft=para["left"][1] - parseInt(para["tag"].width()) || parseInt($("body")[0].clientWidth) - parseInt(para["tag"].width());
+		var maxTop=para["top"][1] - parseInt(para["tag"].height())|| parseInt($(window).height()) - parseInt(para["tag"].height());
+        var ePageX,//鼠标位置
+            ePageY,//鼠标位置
+            tPageX=para["left"][0],//元素位置
+            tPageY=para["top"][0], //元素位置
+        	__this=this;
+        //初始化拖拽元素位置    
+        para["tag"].css({
+            "left":para["left"][0],
+            "top":para["top"][0]
+        });    
+        para["tag"].off().on("mousedown",function(e){
+        	__this.moveField(true,para);
+            ePageX=e.pageX,
+            ePageY=e.pageY;
+            var x=ePageX-tPageX;//鼠标和元素左上角横向距离
+            var y=ePageY-tPageY;//鼠标和元素左上角纵向距离
+            para["fbox"].on("mousemove",function(e){
+                ePageX=e.pageX,
+                ePageY=e.pageY;
+
+                tPageX=ePageX-x;
+                tPageY=ePageY-y;
+                
+                if(tPageX < para["left"][0]){
+	            	tPageX=para["left"][0];
+	            }else if(tPageX > maxLeft){
+	            	tPageX=maxLeft;
+	            }
+
+	            if(tPageY < para["top"][0]){
+	                tPageY=para["top"][0];
+	            }else if(tPageY > maxTop){
+	            	tPageY=maxTop;
+	            }
+
+	            para["tag"].css({
+	                 "left":tPageX,
+	                 "top":tPageY
+	            });
+            });
+            e.stopPropagation();
+        })
+        .on("mouseup",function(e){
+            __this.moveField(false,para);
+            para["fbox"].off("mousemove");
+            e.stopPropagation();
+        })
+    },
+    moveField:function(flag,para){
+    	if(flag === true){
+    		if($("#moveField").length === 0){
+    			para["fbox"].prepend("<div id='moveField' class='movefield'></div>");
+                $("#moveField").css({
+    				"width":para["left"][1]-para["left"][0],
+    				"height":para["top"][1]-para["top"][0],
+                    "top":para["top"][0],
+                    "left":para["left"][0]
+    			});
+    		}
+    	}else{
+    		$("#moveField").remove()
+    	}
+    }
+};
+
+dragMove.init({
+	"fbox":$("#fbox"),//父元素，默认body
+	"tag":$("#musicGeniusBox"),//拖拽的元素
+	"left":[10,899], //边界，拖拽范围边界，坐标原点为父元素左上角
+	"top":[110,500]	 //边界，拖拽范围边界
+});
+
+//测试代码
+(function(){
+	var str='';
+	for(var i=0;i<5000;i++){
+		str+="<div style='float:left'>test"+i+"</div>";
+	}
+	$("body").append(str);
+})();
+</script>
+
+
+</body>
+</html>
