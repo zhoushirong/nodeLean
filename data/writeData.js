@@ -6,16 +6,17 @@ var path=require("path");
 // data为具体要写入文件的数据对象,
 // [options]为具体的保存文件配置，编码格式等,
 // callback为具体的回调函数，进行相应的错误捕捉及提示。
-function write(data){
+function writeFile(data){
 	fs.writeFile(path.join(__dirname, 'jsonData.js'),JSON.stringify(data),{encoding:'utf-8'},function(err){
 		if(err){
-			throw err;
+			console.log(err);
+		}else{
+			console.log("数据写入成功！");
 		}
-		console.log("数据写入成功！");
 	});
 }
-
-exports.writeData=write;
+writeFile({"test":"test"});
+exports.writeData=writeFile;
 
 
 
