@@ -8,6 +8,7 @@ var hbs=require('hbs');
 var bodyParser = require('body-parser')
 var ejsTemp=require('ejs');
 var articles=require('./data/articles')();
+var url=require('url');
 //运行ejs模块
 app.engine('.html',ejsTemp.__express);
 // 设定views变量，意为视图存放的目录
@@ -26,11 +27,30 @@ var router=express.Router();
 
 //router.get("path","")path：指新的访问地址
 //res.render('index') 就是指，把子目录views下面的index.html文件，交给模板引擎hbs渲染。
-router.get('/',function(req,res){console.log(articles);
+router.get('/',function(req,res){
 	res.render('visitor/index',{articles:articles});
 	res.end();
 });
+router.get('/page',function(req,res){
+	var articleId=parseInt(url.parse(req.url,true).query.id);
+	var getTrueAtc=function(){
+		var trueAtc={};
+		for(var i=0,len=articles.length;i<len;i++){
+			if(articles[i]["id"] === articleId){
+				trueAtc = articles[i];
+				break;
+			}
+		}
+		return trueAtc;
+	}
 
+	res.render('visitor/article',{article:getTrueAtc()});
+	res.end();
+});
+
+function queryString(url){
+	//return str.
+}
 // router.get('/article/:id', function(req, res) {
 // 	ejs.getBlogEntry(req.params.id,function(d){
 // 		res.render('visitor/article',{title:d.title,blog:d});

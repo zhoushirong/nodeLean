@@ -3,13 +3,12 @@
 <h1>文章列表</h1>
 
 <% if (articles.length) { %>
- 	<ul>
-		<% articles.forEach(function(article){ %>
-		<li><span><%= article.id %></span><span><%= article.title %></span></li>
-		<% }) %>
-	</ul>
+<ul>
+	<% articles.forEach(function(article){ %>
+	<li><a href='page?id=<%= article.id %>' target='_blank'><%= article.title %></a><em><%= article.published %></em></li>
+	<% }) %>
+</ul>
 <% } %>
-
 
 <button id="loadMore">获取更多文章>></button>
 <script type="text/javascript" src="/static/visitor/js/index.js"></script>
