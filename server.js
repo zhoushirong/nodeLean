@@ -7,7 +7,7 @@ var hbs=require('hbs');
 //加载数据模块
 var bodyParser = require('body-parser')
 var ejsTemp=require('ejs');
-
+var articles=require('./data/articles')();
 //运行ejs模块
 app.engine('.html',ejsTemp.__express);
 // 设定views变量，意为视图存放的目录
@@ -26,11 +26,8 @@ var router=express.Router();
 
 //router.get("path","")path：指新的访问地址
 //res.render('index') 就是指，把子目录views下面的index.html文件，交给模板引擎hbs渲染。
-router.get('/',function(req,res){
-	res.render('visitor/index',{
-		title:"最近文章",
-		time:"2012/03/02"
-	});
+router.get('/',function(req,res){console.log(articles);
+	res.render('visitor/index',{articles:articles});
 	res.end();
 });
 
