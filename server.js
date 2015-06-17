@@ -8,7 +8,7 @@ var url=require("url");
 var selectObjById=require("self-pub").getTrueAtc;
 
 //**********************加载模拟数据**************************
-var articles=require("./data/articles")();
+var getArticles=require("./data/articles");
 
 //运行ejs模块
 app.engine(".html",ejsTemp.__express);
@@ -23,13 +23,18 @@ app.use(express.static(path.join(__dirname, "/")));
 var router=express.Router();
 
 router.get("/",function(req,res){
-	res.render("visitor/index",{articles:articles});
-	res.end();
+	getArticles(function(data){
+		res.render("visitor/index",{articles:data});
+		res.end();
+	});
 });
 router.get("/page",function(req,res){
 	var articleId=parseInt(url.parse(req.url,true).query.id);
-	res.render("visitor/article",{article:selectObjById(articles,"id",articleId)});
+	getArticles(function(data){
+		res.render("visitor/article",{article:selectObjById(data,"id",articleId)});
 	res.end();
+	});
+	
 });
 
 // router.get("/about",function(req,res){

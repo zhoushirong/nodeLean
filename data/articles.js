@@ -1,11 +1,15 @@
-module.exports = function(){
-	var entries = [
-	    {"id":1, "title":"第一篇", "body":"正文", "published":"6/2/2013"},
-	    {"id":2, "title":"第二篇", "body":"正文", "published":"6/3/2013"},
-	    {"id":3, "title":"第三篇", "body":"正文", "published":"6/4/2013"},
-	    {"id":4, "title":"第四篇", "body":"正文", "published":"6/5/2013"},
-	    {"id":5, "title":"第五篇", "body":"正文", "published":"6/10/2013"},
-	    {"id":6, "title":"第六篇", "body":"正文", "published":"6/12/2013"}
-	];
-	return entries;
+var fs=require("fs");
+var path=require("path");
+
+module.exports = function(callback){
+	fs.readFile(path.join(__dirname, 'jsonData.js'),{encoding:'utf-8'},function(err,data){
+		if(err){
+			console.log(err);
+		}else{
+			console.log("数据读取成功！");
+			if(typeof callback === "function"){
+				callback(JSON.parse(data));
+			}
+		}
+	});
 }
