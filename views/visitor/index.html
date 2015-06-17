@@ -2,11 +2,11 @@
 
 <h1>文章列表</h1>
  <ul>
-{{#each entries}}
-   <li>
-      <a href="/article/{{id}}">{{title}}</a><span>{{time}}</span>
-   </li>
-{{/each}}
+
+<li>
+  <a href="/article/{{id}}"><%= title %></a><span><%= time ></span>
+</li>
+
 </ul>
 <button id="loadMore">获取更多文章>></button>
 <script type="text/javascript" src="/static/visitor/js/index.js"></script>
