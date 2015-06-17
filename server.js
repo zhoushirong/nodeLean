@@ -1,14 +1,15 @@
 var express = require("express");
-//var filter = require("./lib/filter");
 var app = express();
 var path=require("path");//引用path模块
 //加载数据模块
 var ejsTemp=require("ejs");
 var url=require("url");
-//加载模拟数据
-var articles=require("./data/articles")();
 //根据参数选择对象
 var selectObjById=require("self-pub").getTrueAtc;
+
+//**********************加载模拟数据**************************
+var articles=require("./data/articles")();
+
 //运行ejs模块
 app.engine(".html",ejsTemp.__express);
 // 设定views变量，意为视图存放的目录
