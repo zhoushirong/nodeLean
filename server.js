@@ -47,12 +47,10 @@ router.get("/page",function(req,res){
 // 	res.render("user/signup", {title:"注册"});
 //  });
 
-// app.get("/message",function(req,res,next){ //  get请求返回json
-// 	var url=req.url;
-// 	var args=url.replace(/.+args=/,");
-
-//     res.send({status:"json","args":args});
-// });
+app.get("/message",function(req,res,next){ //  get请求返回json
+	var args=url.parse(req.url,true).query.args;
+    res.send({status:"json","args":args});
+});
 
 app.use("/",router);
 app.listen(3000);
