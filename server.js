@@ -27,17 +27,6 @@ router.get("/",function(req,res){
 });
 router.get("/page",function(req,res){
 	var articleId=parseInt(url.parse(req.url,true).query.id);
-	// var getTrueAtc=function(){
-	// 	var trueAtc={};
-	// 	for(var i=0,len=articles.length;i<len;i++){
-	// 		if(articles[i]["id"] === articleId){
-	// 			trueAtc = articles[i];
-	// 			break;
-	// 		}
-	// 	}
-	// 	return trueAtc;
-	// }
-	
 	res.render("visitor/article",{article:selectObjById(articles,"id",articleId)});
 	res.end();
 });
