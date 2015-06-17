@@ -1,5 +1,4 @@
 $(document).ready(function(){
-	
 	$("#loadMore").click(function(){
 		getMore();
 	});
