@@ -1,8 +1,8 @@
 <body>
 <h2>注册</h2>
-<form id="signUp" post="/">
-<div><label>用户名</label><input type="text"/></div>
-<div><label>密码</label><input type="passworld"/></div>
+<form id="signUp" action="/register" method="post">
+<div><label>用户名</label><input name = "username" type="text"/></div>
+<div><label>密码</label><input name= "password" type="passworld"/></div>
 <div><label>确认密码</label><input type="passworld"/></div>
 <div><input type="submit" value="提交"/><input type="reset" value="取消"/></div>
 </form>
