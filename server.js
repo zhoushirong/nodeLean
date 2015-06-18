@@ -22,13 +22,13 @@ app.use(express.static(path.join(__dirname, "/")));
 
 var router=express.Router();
 
-router.get("/",function(req,res){
+router.get("/",function(req,res){//文章列表 & 首页
 	getArticles(function(data){
 		res.render("visitor/index",{articles:data});
 		res.end();
 	});
 });
-router.get("/page",function(req,res){
+router.get("/page",function(req,res){//文章详情页
 	var articleId=parseInt(url.parse(req.url,true).query.id);
 	getArticles(function(data){
 		res.render("visitor/article",{article:selectObjById(data,"id",articleId)});
@@ -43,9 +43,10 @@ router.get("/page",function(req,res){
 // router.get("/login",function(req,res){
 // 	res.render("user/login", {title:"登录"});
 //  });
-// router.get("/signup",function(req,res){
-// 	res.render("user/signup", {title:"注册"});
-//  });
+
+router.get("/signup",function(req,res){//注册用户
+	res.render("user/signup", {title:"注册"});
+ });
 
 app.get("/message",function(req,res,next){ //  get请求返回json
 	var args=url.parse(req.url,true).query.args;
