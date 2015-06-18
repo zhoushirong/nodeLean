@@ -49,8 +49,16 @@ router.get("/page",function(req,res){
 
 app.get("/message",function(req,res,next){ //  get请求返回json
 	var args=url.parse(req.url,true).query.args;
-    res.send({status:"json","args":args});
+    res.send({status:"jsonget","args":args});
+    res.end();
 });
+
+app.post("/message",function(req,res,next){ //  post请求返回json
+	var args=url.parse(req.url,true).query.args;
+    res.send({status:"jsonpost","args":args});
+    res.end();
+});
+
 
 app.use("/",router);
 app.listen(3000);
