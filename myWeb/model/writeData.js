@@ -28,7 +28,7 @@ function writeArticle(){
 		var obj={"id":i, "title":"第"+i+"篇文章的标题", "body":"第"+i+"篇文章的内容", "published":"6/2/2013"};
 		arr.push(obj);
 	}
-	writeFile(arr,"articleData.txt");
+	writeFile(arr,"../db/articleData.txt");
 }
 
 //写入用户信息数据
@@ -50,7 +50,7 @@ function writeUser(){
 		}
 		arr.push(obj);
 	}
-	writeFile(arr,"userData.txt");
+	writeFile(arr,"../db/userData.txt");
 }
 
 function init(){

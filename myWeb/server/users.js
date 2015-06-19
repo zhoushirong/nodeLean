@@ -2,7 +2,7 @@ var fs=require("fs");
 var path=require("path");
 
 module.exports = function(callback){
-	fs.readFile(path.join(__dirname, '../data/userData.txt'),{encoding:'utf-8'},function(err,data){
+	fs.readFile(path.join(__dirname, '../db/userData.txt'),{encoding:'utf-8'},function(err,data){
 		if(err){
 			console.log(err);
 		}else{

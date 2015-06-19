@@ -9,4 +9,4 @@ function getTrueAtc(obj,attr,point){
 	}
 	return trueAtc;
 }
-exports.getTrueAtc = getTrueAtc;
+module.exports = getTrueAtc;
