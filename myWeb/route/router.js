@@ -91,7 +91,7 @@ router.get("/signup",function(req,res){
 //注册事件处理
 app.post("/register",function(req,res,next){ 
     res.send({status:"1","data":"注册成功！"});
-    dealSignupData.signup(req.body);
+    dealSignupData(req.body);
     res.end();
 });
 
