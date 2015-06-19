@@ -45,6 +45,7 @@ router.get("/page",function(req,res){
 	});
 	
 });
+
 //用户列表
 router.get("/users",function(req,res){
 	getUsers(function(data){
@@ -52,6 +53,7 @@ router.get("/users",function(req,res){
 		res.end();
 	});
 });
+
 //用户详情页面
 router.get("/user",function(req,res){
 	var userId=parseInt(url.parse(req.url,true).query.id);
@@ -62,18 +64,9 @@ router.get("/user",function(req,res){
 	});
 });
 
-// router.get("/about",function(req,res){
-// 	res.render("user/about", {title:"自我介绍"});
-//  });
 // router.get("/login",function(req,res){
 // 	res.render("user/login", {title:"登录"});
 //  });
-
-//注册页面
-router.get("/signup",function(req,res){
-	res.render("user/signup", {title:"注册"});
-	res.end();
- });
 
 //  get请求返回json
 app.get("/message",function(req,res,next){ 
@@ -89,13 +82,16 @@ app.post("/message",function(req,res,next){
     res.end();
 });
 
-//  注册事件
+//注册页面
+router.get("/signup",function(req,res){
+	res.render("user/signup", {title:"注册"});
+	res.end();
+ });
+
+//注册事件处理
 app.post("/register",function(req,res,next){ 
     res.send({status:"1","data":"注册成功！"});
-    var user_name=req.body.username;  
-  	var password=req.body.password;
-  	var data={"username":user_name,"password":password};
-    dealData.signup(data);
+    dealData.signup(req.body);
     res.end();
 });
 
