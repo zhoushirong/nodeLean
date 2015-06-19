@@ -1,0 +1,9 @@
+<!-- views/user.html文件 -->
+
+<% if (users.length) { %>
+<ul>
+	<% users.forEach(function(users){ %>
+	<li><a href='page?id=<%= users.id %>' target='_blank'><%= users.username %></a><em><%= users.sex %></em></li>
+	<% }) %>
+</ul>
+<% } %>

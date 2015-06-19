@@ -14,7 +14,8 @@ var dealData=require("deal-data");
 //**********************加载模拟数据**************************
 app.use(bodyParser.urlencoded({ extended: false })); 
 
-var getArticles=require("./data/articles");
+var getArticles=require("./mod/articles");
+var getUsers=require("./mod/users");
 
 //运行ejs模块
 app.engine(".html",ejsTemp.__express);
@@ -40,11 +41,18 @@ router.get("/page",function(req,res){
 	var articleId=parseInt(url.parse(req.url,true).query.id);
 	getArticles(function(data){
 		res.render("visitor/article",{article:selectObjById(data,"id",articleId)});
-	res.end();
+		res.end();
 	});
 	
 });
-
+//用户列表
+router.get("/users",function(req,res){
+	getUsers(function(data){
+		console.log(data);
+		res.render("visitor/user",{users:data});
+		res.end();
+	});
+});
 // router.get("/about",function(req,res){
 // 	res.render("user/about", {title:"自我介绍"});
 //  });
