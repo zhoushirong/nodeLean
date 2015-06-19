@@ -6,26 +6,26 @@ var ejsTemp=require("ejs");
 var url=require("url");
 var bodyParser = require("body-parser"); 
 //根据参数选择对象
-var selectObjById=require("self-pub").getTrueAtc;
+var selectObjById=require("./controller/getObjById");
 //处理接收到的数据
-var dealData=require("deal-data");
+var dealSignupData=require("./controller/signup");
 
-
+// 设定静态文件目录，比如本地文件,目录为demo/public/images，访问网址则显示为http://localhost:3000/images
+app.use(express.static(path.join(__dirname, "/")));
 //**********************加载模拟数据**************************
 app.use(bodyParser.urlencoded({ extended: false })); 
 
-var getArticles=require("./mod/articles");
-var getUsers=require("./mod/users");
+var getArticles=require("./server/articles");
+var getUsers=require("./server/users");
 
 //运行ejs模块
 app.engine(".html",ejsTemp.__express);
 // 设定views变量，意为视图存放的目录
-app.set("views",path.join(__dirname,"views"));
+app.set("views",path.join(__dirname,"view"));
 //指定模板文件的后缀名为html
 app.set("view engine","html"); 
 
-// 设定静态文件目录，比如本地文件,目录为demo/public/images，访问网址则显示为http://localhost:3000/images
-app.use(express.static(path.join(__dirname, "/")));
+
 var router=express.Router();
 
 //文章列表 & 首页
@@ -59,7 +59,7 @@ router.get("/user",function(req,res){
 	var userId=parseInt(url.parse(req.url,true).query.id);
 	getUsers(function(data){
 		console.log(selectObjById(data,"id",userId));
-		res.render("visitor/info",{user:selectObjById(data,"id",userId)});
+		res.render("user/info",{user:selectObjById(data,"id",userId)});
 		res.end();
 	});
 });
@@ -91,7 +91,7 @@ router.get("/signup",function(req,res){
 //注册事件处理
 app.post("/register",function(req,res,next){ 
     res.send({status:"1","data":"注册成功！"});
-    dealData.signup(req.body);
+    dealSignupData.signup(req.body);
     res.end();
 });
 
