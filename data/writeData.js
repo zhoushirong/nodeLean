@@ -45,7 +45,8 @@ function writeUser(){
 				}else{
 					return "女";
 				}
-			})()
+			})(),
+			"intro":"自我介绍，我是中国人我哎中国"+i
 		}
 		arr.push(obj);
 	}

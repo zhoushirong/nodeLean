@@ -48,11 +48,20 @@ router.get("/page",function(req,res){
 //用户列表
 router.get("/users",function(req,res){
 	getUsers(function(data){
-		console.log(data);
 		res.render("visitor/user",{users:data});
 		res.end();
 	});
 });
+//用户详情页面
+router.get("/user",function(req,res){
+	var userId=parseInt(url.parse(req.url,true).query.id);
+	getUsers(function(data){
+		console.log(selectObjById(data,"id",userId));
+		res.render("visitor/info",{user:selectObjById(data,"id",userId)});
+		res.end();
+	});
+});
+
 // router.get("/about",function(req,res){
 // 	res.render("user/about", {title:"自我介绍"});
 //  });
