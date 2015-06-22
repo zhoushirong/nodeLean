@@ -1,7 +1,10 @@
 <!-- views/article.html文件 -->
+<% include ../layout/header.tpl.html%>
 
 <h1><%= article.title %></h1>
 <p>
 <%= article.published %>
 <p/>
 <p><%= article.body %></p>
+
+<% include ../layout/footer.tpl.html%>

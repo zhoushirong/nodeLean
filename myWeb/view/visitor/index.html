@@ -1,6 +1,6 @@
 <!-- views/index.html文件 -->
-<a href="/signup" target="_blank">注册</a>
-<a href="/users" target="_blank">网站用户</a>
+<% include ../layout/header.tpl.html%>
+
 <h1>文章列表</h1>
 <% if (articles.length) { %>
 <ul>
@@ -13,3 +13,5 @@
 <button id="postText">获取更多文章post>></button>
 <script type="text/javascript" src="/view/js/jquery-2.1.3.min.js"></script>
 <script type="text/javascript" src="/view/js/index.js"></script>
+
+<% include ../layout/footer.tpl.html%>
