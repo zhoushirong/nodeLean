@@ -32,7 +32,7 @@ module.exports=function(){
 	//文章列表 & 首页
 	router.get("/",function(req,res){
 		getArticles(function(data){
-			res.render("visitor/index",{articles:data,comments:data});
+			res.render("visitor/index",{articles:data});
 			res.end();
 		});
 	});
