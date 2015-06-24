@@ -1,0 +1,17 @@
+CREATE TABLE IF NOT EXISTS user(
+	'id' int(8) DEFAULT NOT NULL COMMENT '用户id',
+	'userName' varchar(255) DEFAULT NULL COMMENT '用户名',
+	'sex' varchar(255) DEFAULT NULL COMMENT '性别',
+	'regTime' varchar(255) DEFAULT NULL COMMENT '注册时间'
+);
+
+CREATE TABLE IF NOT EXISTS article(
+	'id' int(8) DEFAULT NOT NULL COMMENT '文章id',
+	'title' varchar(255) DEFAULT NULL COMMENT '文章标题',
+	'content' varchar(255) DEFAULT NULL COMMENT '文章内容',
+	'pubTime' varchar(255) DEFAULT NULL COMMENT '发布时间'
+);
+
+
+
+
