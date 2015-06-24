@@ -1,7 +1,13 @@
+CREATE DATABASE zsrblog;
+USE zsrblog;
+DATABASE CHANGED;
+
 CREATE TABLE IF NOT EXISTS user(
 	'id' int(8) DEFAULT NOT NULL COMMENT '用户id',
 	'userName' varchar(255) DEFAULT NULL COMMENT '用户名',
+	'password' varchar(20) DEFAULT NULL COMMENT '密码',
 	'sex' varchar(255) DEFAULT NULL COMMENT '性别',
+	'intro' varchar(255) DEFAULT NULL COMMENT '简介',
 	'regTime' varchar(255) DEFAULT NULL COMMENT '注册时间'
 );
 
