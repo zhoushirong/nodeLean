@@ -10,6 +10,7 @@ module.exports=function(){
 	var selectObjById=require("../controller/getObjById");
 	//处理接收到的数据
 	var dealSignupData=require("../controller/signup");
+	var dealLoginData=require("../controller/login");
 
 	// 设定静态文件目录，比如本地文件,目录为demo/public/images，访问网址则显示为http://localhost:3000/images
 	app.use(express.static(path.join(__dirname, "../")));
@@ -64,9 +65,16 @@ module.exports=function(){
 		});
 	});
 
-	// router.get("/login",function(req,res){
-	// 	res.render("user/login", {title:"登录"});
-	//  });
+	router.get("/login",function(req,res){
+		res.render("user/login", {title:"登录"});
+	});
+
+	//登录事件处理
+	router.post("/login",function(req,res,next){ 
+	    res.send({status:"1","data":"登录成功！"});
+	    dealLoginData(req.body);
+	    res.end();
+	});
 
 	//  get请求返回json
 	router.get("/message",function(req,res,next){ 
@@ -96,5 +104,5 @@ module.exports=function(){
 	});
 
 	app.use("/",router);
-	app.listen(3001);
+	app.listen(3002);
 }
