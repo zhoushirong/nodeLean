@@ -44,7 +44,6 @@ module.exports=function(){
 			res.render("visitor/article",{article:selectObjById(data,"id",articleId)});
 			res.end();
 		});
-		
 	});
 
 	//用户列表
@@ -97,5 +96,5 @@ module.exports=function(){
 	});
 
 	app.use("/",router);
-	app.listen(3000);
+	app.listen(3001);
 }

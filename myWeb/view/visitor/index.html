@@ -4,7 +4,7 @@
 <% if (articles.length) { %>
 <ul>
 	<% articles.forEach(function(article){ %>
-	<li><a href='page?id=<%= article.id %>' target='_blank'><%= article.title %></a><em><%= article.published %></em></li>
+	<li><a href='page?id=<%= article.id %>' target='_blank'><%= article.title %></a><em><%= article.pubTime %></em></li>
 	<% }) %>
 </ul>
 <% } %>
