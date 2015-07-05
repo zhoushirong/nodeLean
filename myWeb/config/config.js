@@ -5,11 +5,13 @@ var config={
 		var mysqlconfig={
 			  host     : 'localhost',
 			  user     : 'root',
-			  password : '123456',
+			  password : '12345678',
 			  database : 'zsrblog'
 		};
 		return mysqlconfig;
-	}
+	},
+	//端口配置
+	portConfig:3003
 };
 
 module.exports=config;

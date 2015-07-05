@@ -6,6 +6,7 @@ module.exports=function(){
 	var ejsTemp=require("ejs");
 	var url=require("url");
 	var bodyParser = require("body-parser"); 
+	var config=require("../config/config");
 	//根据参数选择对象
 	var selectObjById=require("../controller/getObjById");
 	//处理接收到的数据
@@ -104,5 +105,6 @@ module.exports=function(){
 	});
 
 	app.use("/",router);
-	app.listen(3002);
+	app.listen(config.portConfig);
+	console.log(config.portConfig);
 }
