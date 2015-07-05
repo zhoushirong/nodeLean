@@ -6,6 +6,8 @@ module.exports=function(){
 	var ejsTemp=require("ejs");
 	var url=require("url");
 	var bodyParser = require("body-parser"); 
+	var cookie=require("cookie");
+	var session=require("express-session");
 	var config=require("../config/config");
 	//根据参数选择对象
 	var selectObjById=require("../controller/getObjById");
@@ -28,7 +30,10 @@ module.exports=function(){
 	//指定模板文件的后缀名为html
 	app.set("view engine","html"); 
 
-
+	//app.use(bodyParser());//开启cookie
+    app.use(session({//开启session
+        secret: "1111"
+    }));
 	var router=express.Router();
 
 	//文章列表 & 首页
@@ -50,6 +55,10 @@ module.exports=function(){
 
 	//用户列表
 	router.get("/users",function(req,res){
+		if(req.headers.cookie){
+			var cookies=cookie.parse(req.headers.cookie);
+			console.log(cookies['connect.sid']);
+		}
 		getUsers(function(data){
 			res.render("visitor/user",{users:data});
 			res.end();
@@ -67,14 +76,27 @@ module.exports=function(){
 	});
 
 	router.get("/login",function(req,res){
+
 		res.render("user/login", {title:"登录"});
 	});
 
 	//登录事件处理
-	router.post("/login",function(req,res,next){ 
-	    res.send({status:"1","data":"登录成功！"});
-	    dealLoginData(req.body);
-	    res.end();
+	router.post("/login",function(req,res,next){
+	    dealLoginData(req.body,function(data){
+	    	if(data.status === 1){
+		    	console.log("登录成功！");
+		    	//写入cookie
+				res.cookie('name', "loginname", {maxAge:600000, httpOnly:true, path:'/', secure:true});
+				res.send({status:"1","data":"登录成功！"});
+				
+			}else{
+				console.log("登陆失败");
+				res.send({status:"0","data":"登录失败！"});
+			}
+			res.end();
+			return false;
+	    });
+	    
 	});
 
 	//  get请求返回json
